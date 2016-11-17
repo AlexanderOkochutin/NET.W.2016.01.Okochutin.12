@@ -28,9 +28,25 @@ namespace Task02.Logic
         /// index of tail-element
         /// </summary>
         private int Tail { get; set; }
+
+        /// <summary>
+        /// count of elements in array
+        /// </summary>
         public int Count { get; private set; }
+
+        /// <summary>
+        /// length of array
+        /// </summary>
         public int Length => Data.Length;
+        
+        /// <summary>
+        /// show array is full or not
+        /// </summary>
         public bool IsFull => Count == Data.Length;
+
+        /// <summary>
+        /// default length of array for dafault constructor
+        /// </summary>
         public const int defaultCapacity = 4;
 
         #endregion
@@ -55,12 +71,12 @@ namespace Task02.Logic
 
         #region Add and Get methods
 
+        /// <summary>
+        /// add element to tail positiopn
+        /// </summary>
+        /// <param name="s">input element</param>
         public void PushTail(T s)
-        {/*
-            if (s == null)
-            {
-                throw new ArgumentNullException(nameof(s));
-            }*/
+        {
             if (Count < Data.Length && Equals(Data[Tail],default(T)))
             {
                 Count++;
@@ -70,6 +86,10 @@ namespace Task02.Logic
             Tail = (++Tail) % Data.Length;
         }
 
+        /// <summary>
+        /// Get and remove element from head position
+        /// </summary>
+        /// <returns>element on head position</returns>
         public T PopHead()
         {
 
@@ -85,6 +105,10 @@ namespace Task02.Logic
             return removed;
         }
 
+        /// <summary>
+        /// show element on head position without remove
+        /// </summary>
+        /// <returns>element on head position</returns>
         public T PeekHead()
         {
             if (Count == 0)
@@ -94,16 +118,28 @@ namespace Task02.Logic
             return Data[Head];
         }
 
+        /// <summary>
+        /// Add element to head position 
+        /// </summary>
+        /// <param name="s">input element</param>
         public void PushHead(T s)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// get and remove element on tail position
+        /// </summary>
+        /// <returns>element on tail position</returns>
         public T PopTail()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Show element without remove on tail position
+        /// </summary>
+        /// <returns>element on tail position</returns>
         public T PeekTail()
         {
             throw new NotImplementedException();
@@ -113,6 +149,10 @@ namespace Task02.Logic
 
         #region Additional functionality
 
+        /// <summary>
+        /// resize and copy data in new array
+        /// </summary>
+        /// <param name="scaleFactor"> grow factor of array</param>
         public void Resize(int scaleFactor = 2)
         {
             int newCount = Data.Length * scaleFactor;
@@ -123,12 +163,20 @@ namespace Task02.Logic
             Tail = Count;
         }
 
+        /// <summary>
+        /// clear array and reset all pointers
+        /// </summary>
         public void Clear()
         {
             Data = new T[Data.Length];
             Head = Tail = Count = 0;
         }
 
+        /// <summary>
+        /// indexator to the right access to the circle array
+        /// </summary>
+        /// <param name="index">index start count from head</param>
+        /// <returns>element on this position</returns>
         public T this[int index] => Data[(Head + index) % Data.Length];
 
         #endregion
@@ -147,6 +195,9 @@ namespace Task02.Logic
         }
         #endregion
 
+        /// <summary>
+        /// Custom Enumerator for circle buffer
+        /// </summary>
         private struct Enumerator<T> : IEnumerator<T>
         {
             private readonly CircleBuffer<T> queue;
@@ -162,7 +213,7 @@ namespace Task02.Logic
 
             public void Dispose()
             {
-                //throw new NotImplementedException();
+              
             }
 
             public bool MoveNext()
