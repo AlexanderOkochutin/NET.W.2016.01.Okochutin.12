@@ -8,7 +8,7 @@ namespace Task03.Logic
     /// custom generic set
     /// </summary>
     /// <typeparam name="T">class which implement IComparable interface</typeparam>
-    public class Set<T> : IEnumerable<T> where T : class, IComparable<T>
+    public class Set<T> : IEnumerable<T> where T : class, IEquatable<T>
     {
         private readonly List<T> data = new List<T>();
         public int Count => data.Count;
