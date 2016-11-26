@@ -43,7 +43,7 @@ namespace Task03.NUnitTests
             Set<string> test1 = new Set<string>(data1);
             Set<string> test2 = new Set<string>(data2);
             Set<string> expected = new Set<string>(expectedData);
-            test1 = test1.Union(test2);
+            test1 = Set<string>.Union(test1,test2);
             CollectionAssert.AreEqual(test1,expected);
         }
 
@@ -56,7 +56,7 @@ namespace Task03.NUnitTests
             Set<string> test1 = new Set<string>(data1);
             Set<string> test2 = new Set<string>(data2);
             Set<string> expected = new Set<string>(expectedData);
-            test1 = test1.Intersection(test2);
+            test1 = Set<string>.Intersection(test1, test2);
             CollectionAssert.AreEqual(test1, expected);
         }
 
@@ -69,7 +69,7 @@ namespace Task03.NUnitTests
             Set<string> test1 = new Set<string>(data1);
             Set<string> test2 = new Set<string>(data2);
             Set<string> expected = new Set<string>(expectedData);
-            test1 = test1.Difference(test2);
+            test1 = Set<string>.Difference(test1,test2);
             CollectionAssert.AreEqual(test1, expected);
         }
 
@@ -82,7 +82,7 @@ namespace Task03.NUnitTests
             Set<string> test1 = new Set<string>(data1);
             Set<string> test2 = new Set<string>(data2);
             Set<string> expected = new Set<string>(expectedData);
-            test1 = test1.SymmetricalDifference(test2);
+            test1 = Set<string>.SymmetricalDifference(test1,test2);
             CollectionAssert.AreEqual(test1, expected);
         }
     }

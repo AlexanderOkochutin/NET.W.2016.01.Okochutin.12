@@ -36,6 +36,8 @@ namespace Task03.Logic
         /// <exception cref="InvalidOperationException">when element already exist in set</exception>
         public void Add(T item)
         {
+            if(item == null) throw new ArgumentNullException(nameof(item));
+
             if (Contains(item))
             {
                 throw new InvalidOperationException("item already in set");
@@ -55,38 +57,32 @@ namespace Task03.Logic
                 Add(item);
             }
         }
-
+        
         /// <summary>
         /// remove element from set
         /// </summary>
         /// <param name="item">removable element</param>
         /// <returns>true in case when element was in set and false when no such element in set</returns>
-        public bool Remove(T item)
-        {
-            return data.Remove(item);
-        }
+        public bool Remove(T item) => data.Remove(item);
 
         /// <summary>
         /// method which help to know element in set or not
         /// </summary>
         /// <param name="item"></param>
         /// <returns>true in case when elem already exist in set and false in other case</returns>
-        public bool Contains(T item)
-        {
-            return data.Contains(item);
-        }
+        public bool Contains(T item) => data.Contains(item);
 
         /// <summary>
         /// union of sets
         /// </summary>
-        /// <param name="other"></param>
         /// <returns>new set (result of union of two sets)</returns>
-        public Set<T> Union(Set<T> other)
+        public static Set<T> Union(Set<T> first, Set<T> second)
         {
-            Set<T> result = new Set<T>(data);
-            foreach (T item in other)
+            if(first == null || second == null) throw new ArgumentNullException();
+            Set<T> result = new Set<T>(first);
+            foreach (T item in second)
             {
-                if (!Contains(item))
+                if (!first.Contains(item))
                 {
                     result.Add(item);
                 }
@@ -97,14 +93,14 @@ namespace Task03.Logic
         /// <summary>
         /// intersection of two sets
         /// </summary>
-        /// <param name="other"></param>
         /// <returns>new set (result of intersection of two sets)</returns>
-        public Set<T> Intersection(Set<T> other)
+        public static Set<T> Intersection(Set<T> first, Set<T> second)
         {
+            if (first == null || second == null) throw new ArgumentNullException();
             Set<T> result = new Set<T>();
-            foreach (T item in this)
+            foreach (T item in first.data)
             {
-                if (other.Contains(item))
+                if (second.Contains(item))
                 {
                     result.Add(item);
                 }
@@ -115,12 +111,12 @@ namespace Task03.Logic
         /// <summary>
         /// difference of teo sets
         /// </summary>
-        /// <param name="other"></param>
         /// <returns>new set (result of difference of two sets)</returns>
-        public Set<T> Difference(Set<T> other)
+        public static Set<T> Difference(Set<T> first, Set<T> second)
         {
-            Set<T> result = new Set<T>(this);
-            foreach (T item in other)
+            if (first == null || second == null) throw new ArgumentNullException();
+            Set<T> result = new Set<T>(first);
+            foreach (T item in second)
             {
                 result.Remove(item);
             }
@@ -130,13 +126,13 @@ namespace Task03.Logic
         /// <summary>
         /// symmetrical difference of two sets
         /// </summary>
-        /// <param name="other"></param>
         /// <returns>return new set(result of symmetrical difference of two sets)</returns>
-        public Set<T> SymmetricalDifference(Set<T> other)
+        public static Set<T> SymmetricalDifference(Set<T> first, Set<T> second)
         {
-            Set<T> union = Union(other);
-            Set<T> intersection = Intersection(other);
-            return union.Difference(intersection);
+            if (first == null || second == null) throw new ArgumentNullException();
+            Set<T> union = Union(first,second);
+            Set<T> intersection = Intersection(first,second);
+            return Difference(union, intersection);
         }
 
         public IEnumerator<T> GetEnumerator()
